@@ -1,1 +1,2 @@
 Getting git is Legit
+This is the second line from instructions
