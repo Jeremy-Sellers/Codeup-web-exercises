@@ -6,7 +6,7 @@ function showMultiplicationTable(number){
 };
 
 for (i = 0; i < 10; i++){
-   var randomNumber = Math.floor(Math.random() * 200) + 3
+   var randomNumber = Math.floor(Math.random() * 180) + 20
 if(randomNumber % 2 === 0){console.log(randomNumber + " is even")}else{
     console.log(randomNumber + " is odd")}
 };
