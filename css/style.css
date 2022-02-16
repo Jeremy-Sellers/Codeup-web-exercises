@@ -1,0 +1,39 @@
+body{
+    font-family: Serif ;
+    background-color: silver;
+    background-image:url(../images/pexels-jakub-novacek-924824.jpg);
+    background-size: cover;
+}
+
+p, footer{
+    color: orangered;
+}
+
+#mainHeader{
+    text-align: center;
+}
+
+h1{
+    color: white;
+    text-decoration: underline;
+}
+
+li{
+    color: orangered;
+}
+
+ul{
+    list-style: square;
+}
+
+table, td, tr{
+    color: orangered;
+    padding: 10px;
+    font-size: 20px;
+}
+
+a:link{color: navy}
+a:visited{color: red}
+a:hover{color:greenyellow}
+a:active{color: darkolivegreen}
+
