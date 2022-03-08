@@ -42,21 +42,37 @@
         // });
 
         //targets li element and gives font-size of 20px
-        $('li').css({
-            'font-size':'20px'
+        // $('li').css({
+        //     'font-size':'20px'
+        // })
+        //
+        // $('h1')
+        // $('p')
+        //
+        // //alerts content of first h1 tag
+        // var h1content = $('h1').html();
+        // alert(h1content);
+        //
+        // //shows how to apply changes to multiple selectors at once
+        // $('h1, p, li').css({
+        //     'background-color':'red'
+        // });
+
+        $('h1').click(function (){
+            $(this).css('background-color', 'blue');
         })
 
-        $('h1')
-        $('p')
+        $('p').dblclick(function (){
+            $(this).css('font-size','18px')
+        })
 
-        //alerts content of first h1 tag
-        var h1content = $('h1').html();
-        alert(h1content);
+        $('li').hover(function (){
+            $(this).css('color','red')},
+            function (){
+            $(this).css('color','black');
 
-        //shows how to apply changes to multiple selectors at once
-        $('h1, p, li').css({
-            'background-color':'red'
-        });
+        })
+
 
 
 
