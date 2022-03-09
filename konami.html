@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Konami Exercise</title>
+</head>
+<body>
+<script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+<script>
+'use strict';
+
+// $(document).keyup(function(event){
+//     console.log(event.keyCode);
+// });
+
+var konamiCode = [38,38,40,40,37,39,37,39,66,65,13]
+
+var userInput = []
+
+$(document).keyup(function (e) {
+    // console.log(e.keyCode);
+    userInput.push(e.keyCode);
+
+    for (var i = 0; i < userInput.length; i++){
+        if (userInput[i] !== konamiCode[i])
+            userInput = [];
+        }
+        if(userInput.length === konamiCode.length){
+            alert('YOU ENTERED THE KONAMI CODE')
+        }
+})
+
+</script>
+</body>
+</html>
