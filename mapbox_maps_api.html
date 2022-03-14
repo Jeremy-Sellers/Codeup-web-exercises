@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css' rel='stylesheet' />
+    <style>
+        #map {
+            /* the width and height may be set to any size */
+            width: 100%;
+            height: 700px;
+        }
+    </style>
+    <title>Mapbox exercise</title>
+</head>
+<body>
+
+<div id='map'></div>
+<!--Mapbox link-->
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js"></script>
+<!--Mapbox link-->
+<script src="js/mapbox-geocoder-utils.js"></script>
+<script src="js/keys.js"></script>
+
+<script>
+    "use strict";
+    mapboxgl.accessToken = MAPBOX_API_TOKEN;
+
+        //GeoCode used to find City with favorite restaurants
+        geocode('San Antonio, Texas', MAPBOX_API_TOKEN).then(function (data) {
+            var lng = data[0];//save longitude
+            var lat = data[1];//save latitude
+            console.log('lng: '+ lng + ' lat: '+ lat)
+            var map = new mapboxgl.Map({//set map to new location based on lng and lat
+                container: 'map',//container ID
+                style: 'mapbox://styles/mapbox/streets-v11',//style URL
+                center: [lng, lat],//starting position[lng,lat]
+                zoom: 10//starting zoom
+            });
+        //End of GeoCode Section
+
+
+            //---Justins Example---
+            // geocode('Chama Gaucha Brazilian Steakhouse, San Antonio TX',MAPBOX_API_TOKEN).then(function (data){
+            //     console.log(data);
+            //     var marker = new mapboxgl.Marker()
+            //     .setLngLat(data)
+            //     .addTo(map);
+            // })
+
+
+            //---Justins Example---
+
+            //Array of objects for restaurant info
+            var listOfRestaurants = [{
+                "name":"Hero's Ramen x Sushi",
+                "location":"13444 West Ave STE200, San Antonio, TX 78216",
+                "website":"https://www.herosramenxsushi.com/"
+            },
+            {
+                "name":"Chama Gaucha Brazilian Steakhouse",
+                "location":"18318 Sonterra Pl, San Antonio, TX 78258",
+                "website":"https://chamagaucha.com/"
+            },
+            {
+                    "name":"Rolando's Super Tacos",
+                    "location":"93 Shasta Ave, San Antonio, TX 78221",
+                    "website":"https://places.singleplatform.com/rolandos-super-taco/menu?ref=google"
+            }
+            ];
+            //End of Array of objects
+
+            //ForEach function to itterate through Array of objects and output info and marker to Map
+            listOfRestaurants.forEach(function (restaurant){
+                geocode(restaurant.location,MAPBOX_API_TOKEN).then(function (data){
+                    var popup = new mapboxgl.Popup()
+                    .setHTML('<p>' + restaurant.name + '</p>' + '<a href="' + restaurant.website + '">Website</a>');
+
+                    var marker = new mapboxgl.Marker()
+                    .setPopup(popup)
+                    .setLngLat(data)
+                    .addTo(map);
+                })
+            })
+            //End of ForEach function
+
+            //Orginal Code to set popups and markers
+            //---Hero's Ramen---
+            // var marker = new mapboxgl.Marker()
+            //     .setLngLat([-98.489309,29.565125])
+            //     .addTo(map);
+            //
+            // var popup = new mapboxgl.Popup()
+            //                 .setHTML('<p>Hero\'s Ramen and Sushi</p>');
+            // marker.setPopup(popup);
+            //---Hero's Ramen---
+
+            //---Chama Gaucha---
+            // var marker2 = new mapboxgl.Marker()
+            //     .setLngLat([-98.49781,29.61040])
+            //     .addTo(map);
+            //
+            // var popup2 = new mapboxgl.Popup()
+            //     .setHTML('<p>Chama Gaucha</p>');
+            // marker2.setPopup(popup2);
+            //---Chama Gaucha---
+
+            //---Rolando's---
+            // var marker3 = new mapboxgl.Marker()
+            //     .setLngLat([-98.50300,29.35516])
+            //     .addTo(map);
+            //
+            // var popup3 = new mapboxgl.Popup()
+            //     .setHTML('<p>Rolando\'s Super Tacos</p>');
+            // marker3.setPopup(popup3);
+            //---Rolando's---
+        });
+
+
+
+
+
+
+
+
+
+</script>
+
+
+</body>
+</html>
