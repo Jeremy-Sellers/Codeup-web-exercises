@@ -8,6 +8,8 @@
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js"></script>
 
     <style>
+        body{background-color: whitesmoke;
+        }
         #map{
             width: 100%;
             height:400px;
@@ -19,28 +21,46 @@
             flex-direction: row;
             justify-content: space-between;
             background-color: deepskyblue;
+            align-items: baseline;
+        }
+        h3{
+            flex-grow: 1;
+        }
+        #submitButton{
+            margin: .2em;
+        }
+        #searchedCity{
+            margin: .2em;
+        }
+        h4{
+            align-items: center;
+
         }
         section{
             display: flex;
             flex-direction: row;
+        }
+        .card{
+            width: 100%;
+
         }
         ul{
             width: 100%;
         }
         li{
             list-style: none;
+            height: 100%;
             margin: .5em;
             border: 1px solid black;
             border-radius: 5px;
         }
         .date{
             background-color: #b1e0f3;
+            height: 3em;
         }
         .coordinates{
-            position: relative;
-            bottom: 5px;
+            position: absolute;
             background-color: red;
-
         }
 
                                                                                 div{}
@@ -58,20 +78,22 @@
 <!--Header-->
 <header>
     <h3 class="appName">Weather Map</h3>
-    <h4 class="cityDisplay">Current city:</h4>
+    <h4>Search for a city:</h4>
+    <input type="text" id="searchedCity">
+    <input type="submit" id="submitButton">
 </header>
 <!--Header-->
 
 <!--Navbar-->
-<nav class="navbar navbar-light bg-light">
-    <div class="container-fluid">
-        <a class="navbar-brand">Place</a>
-        <form class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Search for a City" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Find</button>
-        </form>
-    </div>
-</nav>
+<!--<nav class="navbar navbar-light bg-light">-->
+<!--    <div class="container-fluid">-->
+<!--        <a class="navbar-brand">Place</a>-->
+<!--        <form class="d-flex">-->
+<!--            <input class="form-control me-2" type="search" placeholder="Search for a City" aria-label="Search">-->
+<!--            <button class="btn btn-outline-success" type="submit">Find</button>-->
+<!--        </form>-->
+<!--    </div>-->
+<!--</nav>-->
 <!--Navbar-->
 
 <!--Cards-->
@@ -81,11 +103,11 @@
             Date
         </div>
         <ul class="list-group list-group-flush">
-            <li class="temperature">An item</li>
-            <li class="humidity">A second item</li>
-            <li class="pressure">A third item</li>
-            <li class="sunrise">A second item</li>
-            <li class="sunset">A third item</li>
+            <li class="temperature">Temperature</li>
+            <li class="humidity">Humidity</li>
+            <li class="pressure">Pressure</li>
+            <li class="sunrise">Sunrise time</li>
+            <li class="sunset">Sunset time</li>
         </ul>
     </div>
     <div class="card m-2" style="width: 50%;">
@@ -93,11 +115,11 @@
             Date
         </div>
         <ul class="list-group list-group-flush">
-            <li class="temperature">An item</li>
-            <li class="humidity">A second item</li>
-            <li class="pressure">A third item</li>
-            <li class="sunrise">A second item</li>
-            <li class="sunset">A third item</li>
+            <li class="temperature">Temperature</li>
+            <li class="humidity">Humidity</li>
+            <li class="pressure">Pressure</li>
+            <li class="sunrise">Sunrise time</li>
+            <li class="sunset">Sunset time</li>
         </ul>
     </div>
     <div class="card m-2" style="width: 50%;">
@@ -105,11 +127,11 @@
             Date
         </div>
         <ul class="list-group list-group-flush">
-            <li class="temperature">An item</li>
-            <li class="humidity">A second item</li>
-            <li class="pressure">A third item</li>
-            <li class="sunrise">A second item</li>
-            <li class="sunset">A third item</li>
+            <li class="temperature">Temperature</li>
+            <li class="humidity">Humidity</li>
+            <li class="pressure">Pressure</li>
+            <li class="sunrise">Sunrise time</li>
+            <li class="sunset">Sunset time</li>
         </ul>
     </div>
     <div class="card m-2" style="width: 50%;">
@@ -117,11 +139,11 @@
             Date
         </div>
         <ul class="list-group list-group-flush">
-            <li class="temperature">An item</li>
-            <li class="humidity">A second item</li>
-            <li class="pressure">A third item</li>
-            <li class="sunrise">A second item</li>
-            <li class="sunset">A third item</li>
+            <li class="temperature">Temperature</li>
+            <li class="humidity">Humidity</li>
+            <li class="pressure">Pressure</li>
+            <li class="sunrise">Sunrise time</li>
+            <li class="sunset">Sunset time</li>
         </ul>
     </div>
     <div class="card m-2" style="width: 50%;">
@@ -129,14 +151,19 @@
             Date
         </div>
         <ul class="list-group list-group-flush ">
-            <li class="temperature">An item</li>
-            <li class="humidity">A second item</li>
-            <li class="pressure">A third item</li>
-            <li class="sunrise">A second item</li>
-            <li class="sunset">A third item</li>
+            <li class="temperature">Temperature</li>
+            <li class="humidity">Humidity</li>
+            <li class="pressure">Pressure</li>
+            <li class="sunrise">Sunrise time</li>
+            <li class="sunset">Sunset time</li>
         </ul>
     </div>
 </section>
+
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.min.js"></script>
+<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.css" type="text/css">
+
+
 <div id='map'></div>
 <pre id="coordinates" class="coordinates"></pre>
 <!-------------------------------------HTML---------------------------------------->
@@ -154,84 +181,95 @@
 <!--Mapbox link-->
 
 <script>
-
-
     "use strict"
+
     mapboxgl.accessToken = MAPBOX_API_TOKEN;
+
+    //Generate Map
     var coordinates = document.getElementById('coordinates');
         var map = new mapboxgl.Map({//set map to new location based on lng and lat
             container: 'map',//container ID
             style: 'mapbox://styles/mapbox/streets-v11',//style URL
             center: [-98.4951, 29.4246],//starting position[lng,lat]
-            zoom: 10//starting zoom
+            zoom: 8//starting zoom
         });
+    //Generate Map
 
-
-        var marker = new mapboxgl.Marker({
-            draggable: true
-        })
+    //Creates Marker
+    var marker = new mapboxgl.Marker({
+        draggable: true
+    })
         .setLngLat([-98.4951,29.4246])
         .addTo(map)
+    //Creates Marker
 
-        function onDragEnd(){
-            var lngLat = marker.getLngLat();
-            coordinates.style.display = 'block';
-            coordinates.innerHTML = `Longitude: ${lngLat.lng}<br />Latitude: ${lngLat.lat}`;
-        }
+    //Method to set weather data after marked has been dragged and released
+    marker.on('dragend',setWeatherData);
+    //End of Method
 
-        marker.on('dragend',onDragEnd)
-
-    // map.addControl(new
-    // mapboxgl.NavigationControl()); adds a zoom bar and drag scroll
-
-
-    $.get('https://api.openweathermap.org/data/2.5/onecall',{
-        lat: 29.4252,
-        lon: -98.4916,
-        appid: WEATHER_MAP_TOKEN,
-        units:"imperial",
-        exclude:'minutely,hourly,current,alerts'  //used to exclude certain timeframes
-    }).done(function (data){
-        console.log(data);
-        $('.date').each(function (index){
-            var dateMilliseconds = data.daily[index].dt
-            var date = new Date(dateMilliseconds * 1000).toDateString()
-            $(this).text(date);
+    //function to set weather data based on searched named area
+    $('#submitButton').click(function(){
+        geocode($('#searchedCity').val(),MAPBOX_API_TOKEN).then(function(data){
+            map.setCenter(data)
+            // console.log(data)
+            setWeatherData(data[0],data[1])
+            marker.setLngLat(data)
         })
+    })
+    //End of function
 
-        $('.temperature').each(function (index){
-            $(this).html('High: '+ data.daily[index].temp.max + 'F'
-                + '<br>'
-                + 'Low: ' + data.daily[index].temp.min + 'F')
-        })
+    //Function to set weather data at marker location
+    function setWeatherData(lng,lat) {
+        $.get('https://api.openweathermap.org/data/2.5/onecall', {
+            lat: marker.getLngLat().lat,
+            lon: marker.getLngLat().lng,
+            appid: WEATHER_MAP_TOKEN,
+            units: "imperial",
+            exclude: 'minutely,hourly,current,alerts'  //used to exclude certain timeframes
+        }).done(function (data) {
+            $('.date').each(function (index) {
+                var dateMilliseconds = data.daily[index].dt
+                var date = new Date(dateMilliseconds * 1000).toDateString()
+                $(this).text(date);
+            })
 
-        $('.humidity').each(function (index){
-            $(this).text('Humidity:' + data.daily[index].humidity);
-        })
+            $('.temperature').each(function (index) {
+                $(this).html('High: ' + data.daily[index].temp.max + 'F'
+                    + '<br>'
+                    + 'Low: ' + data.daily[index].temp.min + 'F')
+            })
 
-        $('.pressure').each(function (index){
-            $(this).text('Atmospheric pressure is: ' + data.daily[index].pressure);
-        })
+            $('.humidity').each(function (index) {
+                $(this).text('Humidity:' + data.daily[index].humidity);
+            })
 
-        $('.sunrise').each(function (index){
-            var sunrise = (data.daily[index].sunrise);
-            var sunriseTime = new Date(sunrise * 1000).toLocaleString();
-            $(this).text('Sunrise is at: ' + sunriseTime);
-        })
-        $('.sunset').each(function (index){
-            var sunset = (data.daily[index].sunset);
-            var sunsetTime = new Date(sunset * 1000).toLocaleString();
-            $(this).text('Sunset is at: ' + sunsetTime);
-        })
+            $('.pressure').each(function (index) {
+                $(this).text('Atmospheric pressure is: ' + data.daily[index].pressure);
+            })
 
-        // pressure,sunrise,sunset
-    }).fail(function (jqXhr,status,error){
-        console.log(jqXhr);
-        console.log(status);
-        console.log(error);
-    });
+            $('.sunrise').each(function (index) {
+                var sunrise = (data.daily[index].sunrise);
+                var sunriseTime = new Date(sunrise * 1000).toLocaleString();
+                $(this).text('Sunrise for: ' + sunriseTime);
+            })
+            $('.sunset').each(function (index) {
+                var sunset = (data.daily[index].sunset);
+                var sunsetTime = new Date(sunset * 1000).toLocaleString();
+                $(this).text('Sunset for: ' + sunsetTime);
+            })
 
-// $('.Humidty').text();
+        }).fail(function (jqXhr, status, error) {
+            console.log(jqXhr);
+            console.log(status);
+            console.log(error);
+        });
+    }
+    //End of function to set weather data at marked location//
+
+    reverseGeocode({},MAPBOX_API_TOKEN ).then(function(data){
+        console.log(data)
+    })
+
 
 </script>
 
